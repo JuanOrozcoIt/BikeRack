@@ -1,0 +1,21 @@
+body {
+	font-family: monospace;
+}
+
+#header {
+	margin-top: 15px;
+	margin-bottom: 15px;
+
+}
+#form {
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-left: 10px;
+
+}
+
+#footer {
+	position:fixed;bottom:0;left:0;right:0;height:30px; 
+	text-align: center;
+}
