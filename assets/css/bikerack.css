@@ -1,5 +1,7 @@
 body {
 	font-family: monospace;
+	display:block;
+	
 }
 
 p {
@@ -9,11 +11,32 @@ button {
 	text-align: center;
 }
 
-#header {
+map {
+	border-style: solid;
+	border-color: black;
+}
+
+#jumbotext{
+
+}
+
+.jumbotron {
+	background-image: url("../images/parkedbike.jpg");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	opacity: 0.5;
+    background-position: center, bottom;
+    background-color:rgba(255,0,0,0.5);
 	margin-top: 15px;
 	margin-bottom: 15px;
 	text-align: center;
+	z-index: 2
 
+	
+
+}
+#jumbotext {
+opacity: 1;
 }
 #form {
 	margin-bottom: 10px;
@@ -26,10 +49,38 @@ button {
 
 #first-name {
 	padding-left: 10px;
-	padding-right: 10px;
+	
+}
+
+#last-name {
+	padding-left: 10px;
+}
+#email {
+	padding-left: 10px;
+}
+#current-location {
+	padding-left: 10px;
+}
+
+#destination {
+	padding-left: 10px;
 }
 
 #footer {
 	position:fixed;bottom:0;left:0;right:0;height:30px; 
 	text-align: center;
 }
+
+#map-input {
+	height:100%;
+	width:50%;
+	float:left;
+	
+}
+#map-table {
+	height: 100%;
+	width: 50%
+	border: ;
+	
+}
+
