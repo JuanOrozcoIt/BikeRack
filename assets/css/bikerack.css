@@ -1,0 +1,46 @@
+/*css for both pages*/
+body {
+	font-family: monospace;
+	display:block;
+
+}
+/*footer*/
+#footer {
+	position:fixed;bottom:0;
+	left:0;
+	right:0;
+	height:30px; 
+	text-align: center;
+}
+
+/*css for index.html*/
+.jumbotron {
+	background-image: url("../images/bikebybridge.jpg");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+/*centers names of input*/
+form {
+	text-align: center;
+	}
+/*centers text in text input*/
+input {
+	text-align: center;
+}
+
+/*css for map.html*/
+#map {
+	width:100%;
+	height:450px;
+	}
+
+
+
+
+
+
+

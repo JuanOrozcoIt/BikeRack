@@ -1,67 +1,66 @@
 <!DOCTYPE html>
 <html lang="en-us">
-<!-- UCBx 17-I Group Project -->
+<!-- Team Brownie -->
 <!-- Chelsea, Natasha, Chris, Juan -->
-<!--  -->
-<title>RACK-N-ROLL</title>
+
+<title></title>
 <head><meta charset="UTF-8"></head>
-<!-- Latest CSS -->
+    <!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
-	<!-- Stylesheet -->
-	<link rel="stylesheet" href="assets/css/style.css">
+	<!--CSS-->
+	<link rel="stylesheet" type="text/css" href="./assets/css/bikerack.css">
 <body>
-    <!-- From here in the code to "Mfunction handleLocationError", we capture the users location after their consent -->
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 70%;
-        width: 70%
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-  </head>
-  <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <body>
+
 <!--Header-->
  <div class="container" id="header">
   <div class="jumbotron">
    <div class="row">
     <div class="col-sm-12">
+
+
   
-      <h1>RACK-N-ROLL</h1>
+      <h1>Bike Rack</h1>
+
       <p>Find a rack, easy as that!</p>
   
     </div>
    </div>   
   </div>
  </div>
+<!--User input-->
+ <div class="container">
+  <div class="row">
+   <div class="col-sm-12">
+    <form id="form">
+     
+     <div class="form-group">
+       <label for="location" id="location">Current Location</label>
+        <input type="text" class="form-control">
+     </div>
+     <div class="form-group" id="destination">
+      <label for="destiation">Destination</label>
+      <input type="text" class="form-control">
+     </div> 
+      <div id="button">
+      <button type="button">Sumbit</button>
+      </div>
+    
+    </form> 
+   </div>
+  </div>
+ </div>
+<!--footer-->
+ <div class="container">
+  <div class="row">
+   <div class="col-sm-12">
+     <footer id="footer">
+     &copy Team Brownie, 2017.
+     </footer>
 
-    <div id="map"></div>
-    <script>
-    // $(document).on("ready",function(){
-      // Note: This app requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
-       var LatLong; //Declaring variable to capture, every time, the users location in coordinates, and use values for search closest coordinates in bike-racks inventory in SFMTA api.
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 37.820667, lng: -122.478526}, //Golden Gate Bridge
-          //center: {lat: -34.397, lng: 150.644},
-          zoom: 13
-        });
-        var infoWindow = new google.maps.InfoWindow({map: map});
+   </div>
+  </div>
+ </div>
+ 
 
         // This is HTML5 geolocation from  Google API documentation.
         if (navigator.geolocation) {
@@ -110,61 +109,10 @@
 
 
 
-            });
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            map.setCenter(pos);
-            console.log(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      }
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-      }// End of Google geolocation code (#map)
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUz56bbBWqGP_KM-0ktGpJ5HU04uEV3O8&callback=initMap">
-    // Google maps API in HTML5 (3/24/2017) for Geolocation code (#map)
-    </script>
-
-<!--User input-->
- <div class="container">
-  <div class="row">
-   <div class="col-sm-12">
-    <form id="form">
-     
-     <div class="form-group">
-       <label for="location" id="location">Current Location</label>
-        <input type="text" class="form-control">
-     </div>
-     <div class="form-group" id="destination">
-      <label for="destiation">Destination</label>
-      <input type="text" class="form-control">
-     </div> 
-      <div id="button">
-      <button type="button">Sumbit</button>
-      </div>
-    
-    </form> 
-   </div>
-  </div>
- </div>
 </body>
-<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-<footer>
-	Copyright &copy; Team 3rownie (CNCJ) 2017.<br>
-	<br>
-	<a href="https://js.org" target="_blank" title="JS.ORG | JavaScript Community">
-<img src="https://logo.js.org/dark_horz.png" width="102" alt="JS.ORG Logo"/></a>
-<!-- alternatives [bright|dark]_[horz|vert|tiny].png (width[horz:102,vert:50,tiny:77]) -->
-</footer>
-</html>
+	
+
+
+
+</html> 
