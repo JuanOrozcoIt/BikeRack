@@ -4,30 +4,14 @@
 <!-- Chelsea, Natasha, Chris, Juan -->
 <!--  -->
 <title>RACK-N-ROLL</title>
-<head><meta charset="UTF-8"><h1>RACK-N-ROLL</h1></head>
+<head><meta charset="UTF-8"></head>
 <!-- Latest CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
 	<!-- Stylesheet -->
-	<!-- <link rel="stylesheet" href="assets/css/style.css"> -->
-<!-- Does Forebase go here? -->
-	<!--<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
-	<script>
-	// Initialize Firebase
-	//  var config = {
-	//    apiKey: "AIzaSyAfZA_x6x318TOBKJFkK7aOfgqIvLv2Lxw",
-	//    authDomain: "mappable-e597d.firebaseapp.com",
-	//    databaseURL: "https://mappable-e597d.firebaseio.com",
-	//    storageBucket: "mappable-e597d.appspot.com",
-	//    messagingSenderId: "696179572515"
-	//  };
-	//  firebase.initializeApp(config);
-	</script>
---> 
-
-<!---adding a comment-->
+	<link rel="stylesheet" href="assets/css/style.css">
 <body>
     <!-- From here in the code to "Mfunction handleLocationError", we capture the users location after their consent -->
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
@@ -49,6 +33,20 @@
   </head>
   <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
   <body>
+<!--Header-->
+ <div class="container" id="header">
+  <div class="jumbotron">
+   <div class="row">
+    <div class="col-sm-12">
+  
+      <h1>RACK-N-ROLL</h1>
+      <p>Find a rack, easy as that!</p>
+  
+    </div>
+   </div>   
+  </div>
+ </div>
+
     <div id="map"></div>
     <script>
     // $(document).on("ready",function(){
@@ -74,21 +72,44 @@
             };
             LatLong = position.coords.latitude+","+position.coords.longitude;
             $.ajax({
-              url: "https://data.sfgov.org/resource/dd7x-3h4a.json?$where=within_circle(geom,"+LatLong+",50000)",// Within_circle came from API Documnetation. LatLong is the variable we created with users location. Right now, radius for search in SFMTA API is 50,000 meters from users location.
+              url: "https://data.sfgov.org/resource/dd7x-3h4a.json?$where=within_circle(geom,"+LatLong+",500)",// Within_circle came from API Documnetation. LatLong is the variable we created with users location. Right now, radius for search in SFMTA API is 50,000 meters from users location.
               method: "GET",
             }).done(function(response) { // response is the entire output (all the bike racks in San Francisco -and any city with rack inventory shared via API we can get)
               console.log("Retrieved " + response.length + " records from the dataset!");
               //console.log(response);
-              // console.log(response[0].address);
-              // console.log(response[0].geom.coordinates);
-              // console.log(response[0].location);
-              // console.log(response[0].street);
-              // console.log(response[0].number_of_racks);
-              // console.log(response[0].number_of_spaces);
+              console.log(response[0].address);
+              console.log(response[0].geom.coordinates);
+              console.log(response[0].location);
+              console.log(response[0].street);
+              console.log(response[0].number_of_racks);
+              console.log(response[0].number_of_spaces);
               // console.log(response[0].object_id);
               // console.log(response[0].year_installed);
                 // $.each(response, function(key,value){
               // });
+              console.log(response[1].address);
+              console.log(response[1].geom.coordinates);
+              console.log(response[1].location);
+              console.log(response[1].street);
+              console.log(response[1].number_of_racks);
+              console.log(response[1].number_of_spaces);
+
+              console.log(response[2].address);
+              console.log(response[2].geom.coordinates);
+              console.log(response[2].location);
+              console.log(response[2].street);
+              console.log(response[2].number_of_racks);
+              console.log(response[2].number_of_spaces);
+
+              console.log(response[3].address);
+              console.log(response[3].geom.coordinates);
+              console.log(response[3].location);
+              console.log(response[3].street);
+              console.log(response[3].number_of_racks);
+              console.log(response[3].number_of_spaces);
+
+
+
             });
             infoWindow.setPosition(pos);
             infoWindow.setContent('Location found.');
@@ -114,22 +135,33 @@
     // Google maps API in HTML5 (3/24/2017) for Geolocation code (#map)
     </script>
 
-	<div id="main"><!-- div 1 -->
-		<div id="work-space01">
-			</div>		
-	</div> <!-- end of div 1 -->
-		<button>START</button>
-	<div id="work-space02"><!-- div 2 -->
-		<button>PAUSE</button>
-	</div><!-- end of div 2 -->
-	<div id="work-space03"><!-- div 3 -->
-		<button>FINISH</button>
-	</div><!-- end of div 3 -->
+<!--User input-->
+ <div class="container">
+  <div class="row">
+   <div class="col-sm-12">
+    <form id="form">
+     
+     <div class="form-group">
+       <label for="location" id="location">Current Location</label>
+        <input type="text" class="form-control">
+     </div>
+     <div class="form-group" id="destination">
+      <label for="destiation">Destination</label>
+      <input type="text" class="form-control">
+     </div> 
+      <div id="button">
+      <button type="button">Sumbit</button>
+      </div>
+    
+    </form> 
+   </div>
+  </div>
+ </div>
 </body>
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <footer>
-	Copyright &copy; CNCJ 2017.<br>
+	Copyright &copy; Team 3rownie (CNCJ) 2017.<br>
 	<br>
 	<a href="https://js.org" target="_blank" title="JS.ORG | JavaScript Community">
 <img src="https://logo.js.org/dark_horz.png" width="102" alt="JS.ORG Logo"/></a>
