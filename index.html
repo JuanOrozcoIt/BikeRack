@@ -2,6 +2,7 @@
 <html lang="en-us">
 <!-- Team Brownie -->
 <!-- Chelsea, Natasha, Chris, Juan -->
+
 <title></title>
 <head><meta charset="UTF-8"></head>
     <!-- Bootstrap -->
@@ -16,8 +17,10 @@
    <div class="row">
     <div class="col-sm-12">
 
+
   
       <h1>Bike Rack</h1>
+
       <p>Find a rack, easy as that!</p>
   
     </div>
@@ -59,7 +62,50 @@
  </div>
  
 
+        // This is HTML5 geolocation from  Google API documentation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            LatLong = position.coords.latitude+","+position.coords.longitude;
+            $.ajax({
+              url: "https://data.sfgov.org/resource/dd7x-3h4a.json?$where=within_circle(geom,"+LatLong+",500)",// Within_circle came from API Documnetation. LatLong is the variable we created with users location. Right now, radius for search in SFMTA API is 50,000 meters from users location.
+              method: "GET",
+            }).done(function(response) { // response is the entire output (all the bike racks in San Francisco -and any city with rack inventory shared via API we can get)
+              console.log("Retrieved " + response.length + " records from the dataset!");
+              //console.log(response);
+              console.log(response[0].address);
+              console.log(response[0].geom.coordinates);
+              console.log(response[0].location);
+              console.log(response[0].street);
+              console.log(response[0].number_of_racks);
+              console.log(response[0].number_of_spaces);
+              // console.log(response[0].object_id);
+              // console.log(response[0].year_installed);
+                // $.each(response, function(key,value){
+              // });
+              console.log(response[1].address);
+              console.log(response[1].geom.coordinates);
+              console.log(response[1].location);
+              console.log(response[1].street);
+              console.log(response[1].number_of_racks);
+              console.log(response[1].number_of_spaces);
 
+              console.log(response[2].address);
+              console.log(response[2].geom.coordinates);
+              console.log(response[2].location);
+              console.log(response[2].street);
+              console.log(response[2].number_of_racks);
+              console.log(response[2].number_of_spaces);
+
+              console.log(response[3].address);
+              console.log(response[3].geom.coordinates);
+              console.log(response[3].location);
+              console.log(response[3].street);
+              console.log(response[3].number_of_racks);
+              console.log(response[3].number_of_spaces);
 
 
 
