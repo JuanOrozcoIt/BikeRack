@@ -1,13 +1,36 @@
 <!DOCTYPE html>
 <html lang="en-us">
-<!-- Team Brownie -->
-<!-- Chelsea, Natasha, Chris, Juan -->
 
-<title></title>
+<title>RACK-N-ROLL</title>
 <head><meta charset="UTF-8"></head>
-    <!-- Bootstrap -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!--CSS-->
+<!-- Latest CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+<body>
+    <!-- MAP & GEOLOCATION CODE -->
+    <!-- From here in the code to "Mfunction handleLocationError", we capture the users location after their consent -->
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 70%;
+        width: 70%
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+  </style>
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!--CSS-->
 	<link rel="stylesheet" type="text/css" href="./assets/css/bikerack.css">
 <body>
 
@@ -17,16 +40,12 @@
    <div class="row">
     <div class="col-sm-12">
 
-
-  
-      <h1>Bike Rack</h1>
-
-      <p>Find a rack, easy as that!</p>
-  
+      <h1>RACK-N-ROLL</h1>
+     <p>Bike. Park. Roll!</p>  
     </div>
    </div>   
   </div>
- </div>
+ 
 <!--User input-->
  <div class="container">
   <div class="row">
@@ -49,70 +68,232 @@
    </div>
   </div>
  </div>
-<!--footer-->
- <div class="container">
-  <div class="row">
-   <div class="col-sm-12">
-     <footer id="footer">
-     &copy Team Brownie, 2017.
-     </footer>
 
-   </div>
-  </div>
- </div>
- 
+
+    <div id="map"></div>
+    <script>
+      // $(document).on("ready",function(){
+      // Note: This app requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+      var LatLong; //Declaring variable to capture, every time, the users location in coordinates, and use values for search closest coordinates in bike-racks inventory in SFMTA api.
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 37.820667, lng: -122.478526}, //Golden Gate Bridge
+          //center: {lat: -34.397, lng: 150.644},
+          zoom: 13
+        });
+
+        //////////////////// TEST MARKER ON GOLDEN GATE ////////////////
+        // var goldenGateLatlng = new google.maps.LatLng(37.820667,-122.478526);
+        // var mapOptions = {
+        //   zoom: 13,
+        //   center: goldenGateLatlng
+        // }
+        //var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        // var marker = new google.maps.Marker({
+        //     position: goldenGateLatlng,
+        //     title:"Yep, the Golden Gate Bridge..."
+        // });
+
+        // var marker = new google.maps.Marker({
+        //               map: map,
+        //               position: goldenGateLatlng,
+        //               //position: myLatlng[i],
+        //               title:"RACK-N-ROLL"
+        //           });
+
+
+
+        // var rack0 = new google.maps.LatLng(response[0].geom.coordinates);
+        // //var goldenGateLatlng = new google.maps.LatLng(37.820667,-122.478526);
+        // var mapOptions = {
+        //   zoom: 13,
+        //   center: rackLatLong
+        //   //center: goldenGateLatlng
+        // }
+        // var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        // var rackPos = {
+        // //var pos = {
+        //         ///////////////////////////////////////////////////////////////
+        //         lat: position.coords.latitude,
+        //         ///////////////////////////////////////////////////////////////
+        //         lng: position.coords.longitude
+        //         ///////////////////////////////////////////////////////////////
+        //       }; ////// RACK'S LOCATION, INTO ONE ATTRIBUTE COMPOSED OF 2 COORDS.
+        //       //LatLong = position.coords.latitude+","+position.coords.longitude;
+        //       rackLatLong = position.coords.latitude+","+position.coords.longitude;
+        //       /////////////////////////////////////////////////////////////////
+
+        // var marker = new google.maps.Marker({
+        //      position: rackLatLong,
+        //     title:"Yep, the Golden Gate Bridge..."
+        //});
+        // var marker = new google.maps.Marker({
+        //               map: map,
+        //               position: rackLatLong
+        //               //position: goldenGateLatlng,
+        //               //position: myLatlng[i],
+        //               title:"RACK-N-ROLL"
+        //           });
+
+
+        ////INFO WINDOW MAP ////////////////
+        var infoWindow = new google.maps.InfoWindow({map: map});
 
         // This is HTML5 geolocation from  Google API documentation.
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
+              ///////////////////////////////////////////////////////////////
               lat: position.coords.latitude,
+              ///////////////////////////////////////////////////////////////
               lng: position.coords.longitude
-            };
+              ///////////////////////////////////////////////////////////////
+            }; ////// USER'S LOCATION, INTO ONE ATTRIBUTE COMPOSED OF 2 COORDS.
             LatLong = position.coords.latitude+","+position.coords.longitude;
+            /////////////////////////////////////////////////////////////////
+
+
+            //////////////////// TEST MARKER ON OBJECT 0 ////////////////
+            //console.log("Rack #1 coords. HERE! (LONGITUDE FIRST, LATITUDE SECOND): "  + response[0].geom.coordinates);
+            // var marker = new google.maps.Marker({
+            //     map: map,
+            //     //position: response[0].geom.coordinates
+            //     position: {lat: 37.820667, lng: -122.478526},
+            //     //position: myLatlng[i],
+            //     title:"RACK-N-ROLL"
+            // });
+            
+            //////////////////// TEST MARKER ON OBJECT 0 ////////////////
+                  //console.log("Rack #1 coords. HERE! (LONGITUDE FIRST, LATITUDE SECOND): "  + response[0].geom.coordinates);
+             // var marker = new google.maps.Marker({
+             //  map: map,
+             //          //position: response[0].geom.coordinates
+             //  position: [-122.400535, 37.78789]
+             //          //position: myLatlng[i],
+             //  title:"RACK-N-ROLL"
+             // });
+
             $.ajax({
-              url: "https://data.sfgov.org/resource/dd7x-3h4a.json?$where=within_circle(geom,"+LatLong+",500)",// Within_circle came from API Documnetation. LatLong is the variable we created with users location. Right now, radius for search in SFMTA API is 50,000 meters from users location.
+              url: "https://data.sfgov.org/resource/dd7x-3h4a.json?$where=within_circle(geom,"+LatLong+",500000)",// Within_circle came from API Documnetation. LatLong is the variable we created with users location. Right now, radius for search in SFMTA API is 50,000 meters from users location.
               method: "GET",
             }).done(function(response) { // response is the entire output (all the bike racks in San Francisco -and any city with rack inventory shared via API we can get)
               console.log("Retrieved " + response.length + " records from the dataset!");
               //console.log(response);
-              console.log(response[0].address);
-              console.log(response[0].geom.coordinates);
-              console.log(response[0].location);
-              console.log(response[0].street);
-              console.log(response[0].number_of_racks);
-              console.log(response[0].number_of_spaces);
+              console.log("Rack #1 address: " + response[0].address);
+              console.log("Rack #1 coords. (LONGITUDE FIRST, LATITUDE SECOND): "  + response[0].geom.coordinates);
+              console.log("Rack #1 is located by: " + response[0].location);
+              console.log("Rack #1 is on " + response[0].street + " (street).");
+              console.log("Rack #1 has " + response[0].number_of_racks + " racks.");
+              console.log("Rack #1 has capacity for " + response[0].number_of_spaces + " bikes.");
               // console.log(response[0].object_id);
               // console.log(response[0].year_installed);
                 // $.each(response, function(key,value){
               // });
-              console.log(response[1].address);
-              console.log(response[1].geom.coordinates);
-              console.log(response[1].location);
-              console.log(response[1].street);
-              console.log(response[1].number_of_racks);
-              console.log(response[1].number_of_spaces);
+              console.log("Rack #2 address: " + response[1].address);
+              console.log("Rack #2 coords. (Longitude FIRST, Latitude SECOND): "  + response[1].geom.coordinates);
+              console.log("Rack #2 is located by: " + response[1].location);
+              console.log("Rack #2 is on " + response[1].street + " (street).");
+              console.log("Rack #2 has " + response[1].number_of_racks + " rack(s).");
+              console.log("Rack #2 has capacity for " + response[1].number_of_spaces + " bikes.");
+              console.log("Rack #3 address: " + response[2].address);
+              console.log("Rack #3 coords. (Longitude FIRST, Latitude SECOND): " + response[2].geom.coordinates);
+              console.log("Rack #3 is located by: " + response[2].location);
+              console.log("Rack #3 is on " + response[2].street + " (street).");
+              console.log("Rack #3 has " + response[2].number_of_racks + " rack(s).");
+              console.log("Rack #3 has capacity for " + response[2].number_of_spaces + " bikes.");
 
-              console.log(response[2].address);
-              console.log(response[2].geom.coordinates);
-              console.log(response[2].location);
-              console.log(response[2].street);
-              console.log(response[2].number_of_racks);
-              console.log(response[2].number_of_spaces);
+              console.log("Rack #4 address: " + response[3].address);
+              console.log("Rack #4 coords. (Longitude FIRST, Latitude SECOND): " + response[3].geom.coordinates);
+              console.log("Rack #4 is located by: " + response[3].location);
+              console.log("Rack #4 on " + response[3].street + " (street).");
+              console.log("Rack #4 has " + response[3].number_of_racks + " rack(s).");
+              console.log("Rack #4 has capacity for " + response[3].number_of_spaces + " bikes.");
+            });
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(' This is YOU. Ready to Rack-n-Roll?');
+            map.setCenter(pos);
+            console.log(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }// End of Google geolocation code (#map)
 
-              console.log(response[3].address);
-              console.log(response[3].geom.coordinates);
-              console.log(response[3].location);
-              console.log(response[3].street);
-              console.log(response[3].number_of_racks);
-              console.log(response[3].number_of_spaces);
+    /// CALL FOR SETMAP ////////////////
+    // To add the marker to the map, call setMap();
+      marker.setMap(map);
 
+    //////////////////// MARKER FOR OBJECT 0 FROM API'S ARRAY ////////////////
+    // console.log("Rack #1 coords. (LONGITUDE FIRST, LATITUDE SECOND): "  + response[0].geom.coordinates)
+    //  response[0].geom.coordinates
 
+    // var goldenGateLatlng = new google.maps.LatLng(37.820667,-122.478526);
+   
+    //     var mapOptions = {
+    //   zoom: 13,
+    //   center: goldenGateLatlng
+    // }
+    // var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+    // var marker = new google.maps.Marker({
+    //     position: goldenGateLatlng,
+    //     title:"Yep, the Golden Gate Bridge..."
+    // });
+
+    // // To add the marker to the map, call setMap();
+    // marker.setMap(map);
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUz56bbBWqGP_KM-0ktGpJ5HU04uEV3O8&callback=initMap">
+    // Google maps API in HTML5 (3/24/2017) for Geolocation code (#map)
+    </script>
+<!--User input-->
+ <div class="container">
+  <div class="row">
+   <div class="col-sm-12">
+    <form id="form">
+     
+     <div class="form-group">
+       <label for="location" id="location">Enter a starting point or location</label>
+        <input type="text" class="form-control">
+     </div>
+     <div class="form-group" id="destination">
+       <label for="destination">Enter a destination street</label>
+        <input type="text" class="form-control">
+     </div> 
+       <div id="button">
+        <button type="button">RACK-N-ROLL!</button>
+       </div>
+    
+    </form> 
+   </div>
+  </div>
+ </div>
 </body>
 
-	
+<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 
+<footer>
+  Copyright &copy; Team 3rownie (CNJ) 2017.<br>
+  <br>
+  <a href="https://js.org" target="_blank" title="JS.ORG | JavaScript Community">
+<img src="https://logo.js.org/dark_horz.png" width="102" alt="JS.ORG Logo"/></a>
+<!-- alternatives [bright|dark]_[horz|vert|tiny].png (width[horz:102,vert:50,tiny:77]) -->
+</footer>
 
-
-</html> 
+</html>
